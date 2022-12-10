@@ -1,8 +1,7 @@
 package ee.projektPlus.quiz;
 
 import ee.projektPlus.quiz.database.entities.PlayerEntity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+import ee.projektPlus.quiz.database.repositories.PlayerRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +15,23 @@ import java.util.List;
 public class StartupRunner implements CommandLineRunner {
 
     @Autowired
-    private EntityManager entityManager;
+    private PlayerRepository playerRepository;
 
     @Override
     @Transactional
     public void run(String...args) throws Exception {
         log.info("Executing startup actions...");
-        PlayerEntity player = new PlayerEntity("John");
-        log.info("Created player: " + player);
+        playerRepository.save(new PlayerEntity("John"));
+        playerRepository.save(new PlayerEntity("Harry"));
+        playerRepository.save(new PlayerEntity("George"));
 
-        entityManager.persist(player);
-        log.info("Same player after persist: " + player);
+
+
 
         log.info("List of player from Database :");
-        Query q = entityManager.createQuery("SELECT p FROM PLAYERS p");
-        List<PlayerEntity> playersFromDB = (List<PlayerEntity>)q.getResultList();
-
-        for (PlayerEntity playerFromDB : playersFromDB) {
-            log.info("Player from DB: " + playerFromDB);
+        List<PlayerEntity> playersFromDB = playerRepository.findAll();
+        for (PlayerEntity player : playersFromDB) {
+            log.info("Retrived player: " + player);
         }
     }
 }
