@@ -1,29 +1,24 @@
-package ee.projektPlus.quiz.database.entities;
-
+package ee.projektPlus.quiz.entities;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+
 @NoArgsConstructor
 @Getter
 @ToString
-@Entity(name="PLAYERS")
+@Entity(name = "PLAYER")
 public class PlayerEntity {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public PlayerEntity(String name) {
+    public PlayerEntity( String name) {
         this.name = name;
     }
 }
