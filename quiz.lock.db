@@ -1,0 +1,6 @@
+#FileLock
+#Fri Dec 16 10:17:57 EET 2022
+hostName=192.168.8.101
+id=18519e0f6cde260dc63c282a26ce09419d7c61b9acf
+method=file
+server=192.168.8.101\:53423
